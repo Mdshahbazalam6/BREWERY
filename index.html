@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            list-style: none;
+        }
+        nav > div{
+            background-color: teal;
+        }
+        nav >div >ul{
+            display: flex; 
+            justify-content: space-around; 
+             align-items: center;
+             padding: 1vh 5vh;
+             font-size: 1vw;
+        }
+        nav >div >ul >li:hover {
+            color: yellow;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        table{
+            border: 1px solid black;
+            width: 90vw;
+            margin: auto;
+            margin-top: 3vh;
+            text-align: center;
+            border-radius: 5px;
+        }
+        table >tbody> tr, table >thead> tr{
+            padding: 1vh;
+            /* border: 2px solid blue; */
+            background-color: yellow;
+            padding: 1vh;
+        }
+        .red{
+            background-color: red;
+        }
+        select{
+            margin: 2vh 2vw;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <ul>
+                <li>Home Page</li>
+             <a href="individual.html">   <li>Individual Brewery Page</li></a>
+               <a href="search.html"> <li>Search Page</li></a>
+            </ul>
+        </div>
+    </nav>
+    <select name="" id="" onchange="show(value)">
+        <option value="planning">planning</option>
+        <option value="micro">micro</option>
+        <option value=""></option>
+    </select>
+    <table>
+        <thead>
+            <tr>
+                <td>name</td>
+                <td>brewery_type</td>
+                <td>city</td>
+                <td>state</td>
+                <td>More</td>
+            </tr>
+        </thead>
+        <tbody id="tablebody">
+            <!-- <tr>
+                <td>name</td>
+                <td>brewery_type</td>
+                <td>city</td>
+                <td>state</td>
+                <td>More</td>
+            </tr> 
+            <tr>
+                <td>name</td>
+                <td>brewery_type</td>
+                <td>city</td>
+                <td>state</td>
+                <td>More</td>
+            </tr>  -->
+        </tbody>
+    </table>
+</body>
+</html>
+<script>
+    let arr
+    async function all(){
+        try {
+           let res=await fetch(`https://api.openbrewerydb.org/breweries`) 
+           let data=await res.json()
+           console.log(data)
+           arr=data
+           display(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    all()
+
+    const display =(data)=>{
+       const tbody=document.getElementById("tablebody")
+       tbody.innerHTML=``
+       data.forEach((ele) => {
+           let tr=document.createElement("tr")
+           let name=document.createElement("td")
+           name.innerHTML=ele.name
+
+           let type=document.createElement("td")
+           type.innerHTML=ele.brewery_type
+
+           let city=document.createElement("td")
+           city.innerHTML=ele.city
+
+           let state=document.createElement("td")
+           state.innerHTML=ele.state
+
+           let more=document.createElement("td")
+           more.innerHTML=`More Details`
+
+           more.onclick=()=>{
+               let id=localStorage.setItem("berweryid",JSON.stringify(ele.id))
+           }
+           more.setAttribute("class",'red')
+           tr.append(name,type,city,state,more)
+           tbody.append(tr)
+       });
+    }
+    // const sel=(data)=>{
+    //     let select=document.getElementById("sel")
+    //     select.innerHTML=``
+    //     data.forEach((ele) => {
+    //         let opt=document.createElement("option")
+    //         opt.value=ele.brewery_type
+    //         opt.innerHTML=ele.brewery_type
+    //         select.appendChild(opt)
+    //     });
+    // }
+    const show=(value)=>{
+        console.log(value)
+        console.log(arr)
+        let ans=arr.filter((ele)=>{
+            return ele.brewery_type === value
+        })
+        display(ans)
+    }
+</script>
+
+<!-- address_2: null
+address_3: null
+brewery_type: "planning"
+city: "Fayetteville"
+country: "United States"
+county_province: null
+created_at: "2021-10-23T02:24:55.243Z"
+id: "banjo-brewing-fayetteville"
+latitude: null
+longitude: null
+name: "Banjo Brewing"
+phone: "3042164231"
+postal_code: "25840"
+state: "West Virginia"
+street: null
+updated_at: "2021-10-23T02:24:55.243Z"
+website_url: null -->
