@@ -135,6 +135,8 @@
 
        let website_url=document.createElement("p")
        website_url.innerHTML=` Website_url : ${data.website_url} `
+       let a=document.createElement("a")
+       a.href="individual.html"
        let more=document.createElement("p")
            more.innerHTML=`More Details`
 
@@ -142,9 +144,10 @@
                let id=localStorage.setItem("berweryid",JSON.stringify(data.id))
                console.log(data.id)
            }
+           a.append(more)
 
            more.setAttribute("class","more")
-       div.append(type,city,country,name,phone,state,website_url,more)
+       div.append(type,city,country,name,phone,state,website_url,a)
        box.append(div)
       });
     //   box.setAttribute("class","box")

@@ -141,14 +141,17 @@
            let state=document.createElement("td")
            state.innerHTML=ele.state
 
+           let a=document.createElement("a")
+           a.href='individual.html'
            let more=document.createElement("td")
            more.innerHTML=`More Details`
 
            more.onclick=()=>{
                let id=localStorage.setItem("berweryid",JSON.stringify(ele.id))
            }
+           a.append(more)
            more.setAttribute("class",'red')
-           tr.append(name,type,city,state,more)
+           tr.append(name,type,city,state,a)
            tbody.append(tr)
        });
     }
