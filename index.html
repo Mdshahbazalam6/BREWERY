@@ -50,6 +50,13 @@
         select{
             margin: 2vh 2vw;
         }
+        #flex{
+            display: flex;
+            width: 25vw;
+            justify-content: space-between;
+            align-items: center;
+            margin-left: 1vw;
+        }
     </style>
 </head>
 <body>
@@ -62,11 +69,14 @@
             </ul>
         </div>
     </nav>
+  <div id="flex">
+    <h2>Choose Your Type here</h2>
     <select name="" id="" onchange="show(value)">
         <option value="planning">planning</option>
         <option value="micro">micro</option>
         <option value=""></option>
     </select>
+  </div>
     <table>
         <thead>
             <tr>
