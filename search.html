@@ -69,6 +69,14 @@
         a:hover {
             color: yellow;
         }
+        .more{
+            background-color: yellowgreen;
+            color: red;
+            border-radius: 10px;
+            /* width: 20vw; */
+            text-align: center;
+            /* padding-left: 9vw; */
+        }
     </style>
 </head>
 <body>
@@ -127,8 +135,16 @@
 
        let website_url=document.createElement("p")
        website_url.innerHTML=` Website_url : ${data.website_url} `
+       let more=document.createElement("p")
+           more.innerHTML=`More Details`
 
-       div.append(type,city,country,name,phone,state,website_url)
+           more.onclick=()=>{
+               let id=localStorage.setItem("berweryid",JSON.stringify(data.id))
+               console.log(data.id)
+           }
+
+           more.setAttribute("class","more")
+       div.append(type,city,country,name,phone,state,website_url,more)
        box.append(div)
       });
     //   box.setAttribute("class","box")
