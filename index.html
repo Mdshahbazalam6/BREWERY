@@ -74,10 +74,17 @@
     </nav>
   <div id="flex">
     <h2>Choose Your Type here</h2>
-    <select name="" id="" onchange="show(value)">
-        <option value="planning">planning</option>
+    <select name="" id="sel" onchange="show(value)">
         <option value="micro">micro</option>
-        <option value=""></option>
+        <option value="nano">nano</option>
+        <option value="regional">regional</option>
+        <option value="brewpub">brewpub</option>
+        <option value="large">large</option>
+        <option value="planning">planning</option>
+        <option value="bar">bar</option>
+        <option value="contract">contract</option>
+        <option value="proprietor">proprietor</option>
+        <option value="closed">closed</option>
     </select>
   </div>
     <table>
@@ -124,6 +131,28 @@
     }
     all()
 
+    async function show()
+  {
+      try
+      {
+         let res  = await fetch(`https://api.openbrewerydb.org/breweries?by_type=${document.getElementById("sel").value}`)
+         let data = await res.json();
+         console.log(data)
+         display(data)
+      }
+      catch(error)
+      {
+         console.log(error)
+      }
+  }
+
+
+
+
+
+
+
+
     const display =(data)=>{
        const tbody=document.getElementById("tablebody")
        tbody.innerHTML=``
@@ -165,14 +194,14 @@
     //         select.appendChild(opt)
     //     });
     // }
-    const show=(value)=>{
-        console.log(value)
-        console.log(arr)
-        let ans=arr.filter((ele)=>{
-            return ele.brewery_type === value
-        })
-        display(ans)
-    }
+    // const show=(value)=>{
+    //     console.log(value)
+    //     console.log(arr)
+    //     let ans=arr.filter((ele)=>{
+    //         return ele.brewery_type === value
+    //     })
+    //     display(ans)
+    // }
 </script>
 
 <!-- address_2: null
